@@ -2,9 +2,11 @@ package com.example.android.hilt.vm
 
 import androidx.lifecycle.ViewModel
 import com.example.android.hilt.data.LoggerDataSource
+import com.example.android.hilt.di.DatabaseLogger
 import com.example.android.hilt.di.InMemoryLogger
 import com.example.android.hilt.util.DateFormatter
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
@@ -14,10 +16,11 @@ import javax.inject.Inject
  * Quote: Peasant. Educated. Worker
  */
 
-//@AndroidEntryPoint
-@ActivityScoped
-class LoggingViewModel @Inject constructor(dateFormatter: DateFormatter) : ViewModel() {
-    @InMemoryLogger
+@HiltViewModel
+class MovieViewModel @Inject constructor(
+    private val detailFetcher: MovieDetailFetcher,
+    private val posterFetcher: MoviePosterFetcher
+) : ViewModel() {
     @Inject
-    lateinit var dataSource: LoggerDataSource
+    lateinit var dateFormatter: DateFormatter
 }

@@ -18,11 +18,10 @@ package com.example.android.hilt.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.android.hilt.LogApplication
 import com.example.android.hilt.R
 import com.example.android.hilt.navigator.AppNavigator
 import com.example.android.hilt.navigator.Screens
-import com.example.android.hilt.vm.LoggingViewModel
+import com.example.android.hilt.vm.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -37,9 +36,6 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var navigator: AppNavigator
-
-    @Inject
-    lateinit var loggingViewModel: LoggingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
