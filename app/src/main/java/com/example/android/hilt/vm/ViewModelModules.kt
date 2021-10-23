@@ -1,16 +1,11 @@
 package com.example.android.hilt.vm
 
 import androidx.lifecycle.SavedStateHandle
-import com.example.android.hilt.vm.MovieDetailFetcher
-import com.example.android.hilt.vm.MoviePosterFetcher
-import com.example.android.hilt.vm.MovieRepository
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import java.util.*
 
 /**
  * Created by bytebeats on 2021/10/22 : 16:13
@@ -20,23 +15,19 @@ import java.util.*
 
 @InstallIn(ViewModelComponent::class)
 @Module
-interface ViewModelModules {
+object ViewModelModules {
 
-    @Binds
+    @Provides
     @ViewModelScoped
-    fun provideDetailFetcher(movieRepository: MovieRepository): MovieDetailFetcher
+    fun provideDetailFetcher(movieRepository: MovieRepository): MovieDetailFetcher =
+        MovieDetailFetcher(movieRepository)
 
-    @Binds
+    @Provides
     @ViewModelScoped
-    fun providePosterFetcher(movieRepository: MovieRepository): MoviePosterFetcher
+    fun providePosterFetcher(movieRepository: MovieRepository): MoviePosterFetcher =
+        MoviePosterFetcher(movieRepository)
 
-    @InstallIn(ViewModelComponent::class)
-    @Module
-    companion object {
-
-        @Provides
-        @ViewModelScoped
-        fun provideDefaultRepo(): MovieRepository =
-            MovieRepository("null")
-    }
+    @Provides
+    fun provideMovieRepo(handle: SavedStateHandle): MovieRepository =
+        MovieRepository(handle.get<String>("movie-id") ?: "")
 }

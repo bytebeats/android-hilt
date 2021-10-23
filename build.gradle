@@ -17,6 +17,7 @@
 buildscript {
     ext.kotlin_version = '1.5.30'
     ext.hilt_version = '2.39.1'
+    ext.hilt_viewmodel_version = '1.0.0-alpha03'
     repositories {
         google()
         mavenCentral()
